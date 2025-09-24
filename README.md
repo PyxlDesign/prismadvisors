@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prism Advisors
 
-## Getting Started
+Accounting that scales with you. From startups to enterprises, Prism Advisors delivers full-stack accounting, bookkeeping, and CFO advisory.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS v4
+- **TypeScript**: Full type safety
+- **Font**: Geist Sans & Geist Mono
+- **Deployment**: Static export ready
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── components/          # Reusable UI components
+│   │   ├── Header.tsx      # Navigation + mobile menu
+│   │   ├── Hero.tsx        # Hero section
+│   │   ├── Why.tsx         # Why choose us section
+│   │   ├── Services.tsx    # Services section
+│   │   ├── Industries.tsx  # Industries we serve
+│   │   ├── About.tsx       # About + testimonials
+│   │   ├── Insights.tsx    # Blog/resources section
+│   │   ├── Contact.tsx     # Contact form
+│   │   └── Footer.tsx      # Footer links
+│   ├── context/
+│   │   └── DataContext.tsx # Centralized data context
+│   ├── api/
+│   │   └── contact/
+│   │       └── route.ts    # Contact form API route
+│   ├── globals.css         # Global styles + Tailwind
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Home page
+└── public/                 # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Start development server
+npm run dev
 
-## Learn More
+# Type check
+npm run type-check
 
-To learn more about Next.js, take a look at the following resources:
+# Lint and fix
+npm run lint:fix
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build for production
+npm run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start production server
+npm start
+```
 
-## Deploy on Vercel
+## 🌐 Deployment Options
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option 1: Static Export (Current Config)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Best for: GitHub Pages, Netlify, Vercel static hosting
+
+```bash
+npm run build
+```
+
+The `out/` folder contains the static export.
+
+### Option 2: Server-Side Rendering
+
+For dynamic features (contact form API):
+
+1. Remove `output: 'export'` from `next.config.ts`
+2. Deploy to Vercel, Netlify, or similar platform
+
+### Option 3: Docker Deployment
+
+Create `Dockerfile`:
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+## 📧 Contact Form Integration
+
+To enable the contact form:
+
+1. **Email Service**: Add Resend, SendGrid, or similar
+2. **Environment Variables**:
+   ```bash
+   RESEND_API_KEY=your_api_key_here
+   CONTACT_EMAIL=info@prismadvisors.com
+   ```
+3. **Update API Route**: Uncomment email service code in `/api/contact/route.ts`
+
+## 🎨 Customization
+
+- **Content**: Edit `src/app/context/DataContext.tsx`
+- **Styling**: Modify `tailwind.config.ts` and component styles
+- **Components**: Each section is modular in `src/app/components/`
+- **Branding**: Update colors, fonts, and assets
+
+## 📱 Features
+
+✅ Responsive design  
+✅ SEO optimized  
+✅ Type-safe components  
+✅ Centralized data management  
+✅ Contact form with validation  
+✅ Modern CSS with Tailwind v4  
+✅ Performance optimized  
+✅ Accessibility compliant
+
+## 🔧 Configuration
+
+- `next.config.ts` - Next.js configuration
+- `tailwind.config.ts` - Styling configuration
+- `tsconfig.json` - TypeScript configuration
+- `.env.local` - Environment variables (create this file)
+
+---
+
+**Built with ❤️ using Next.js and Tailwind CSS**

@@ -25,9 +25,9 @@ export default function Contact() {
             setStatus("success");
             setMessage("Thanks — we'll get back to you shortly.");
             (e.currentTarget as HTMLFormElement).reset();
-        } catch (err: any) {
+        } catch (err: unknown) {
             setStatus("error");
-            setMessage(err?.message || "Unable to send right now.");
+            setMessage((err as Error)?.message || "Unable to send right now.");
         }
     }
 

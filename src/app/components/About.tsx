@@ -1,3 +1,4 @@
+"use client";
 import { useData } from '@/app/context/DataContext';
 
 export default function About() {
@@ -23,8 +24,8 @@ export default function About() {
                     <div className="grid gap-4">
                         {about.testimonials.map((testimonial, idx) => (
                             <figure key={idx} className="rounded-md border border-blue-100 p-6 bg-white">
-                                <blockquote className="text-slate-800">"{testimonial.quote}"</blockquote>
-                                <figcaption className="mt-3 text-sm text-slate-500">— {testimonial.author}</figcaption>
+                                <blockquote className="text-slate-800">&ldquo;{testimonial.quote}&rdquo;</blockquote>
+                                <figcaption className="mt-3 text-sm text-slate-500">&mdash; {testimonial.author}</figcaption>
                             </figure>
                         ))}
                     </div>

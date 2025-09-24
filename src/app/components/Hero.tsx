@@ -1,3 +1,4 @@
+"use client";
 import { useData } from '@/app/context/DataContext';
 
 export default function Hero() {
