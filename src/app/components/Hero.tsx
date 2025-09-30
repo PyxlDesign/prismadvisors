@@ -26,7 +26,7 @@ export default function Hero() {
             </div>
 
             <div className="self-end mt-0 mx-auto max-w-6xl px-4 sm:px-6">
-                <div className="py-12 sm:py-16 text-center text-white">
+                <div className="py-12 sm:py-24 text-center text-white">
                     <h1 className="mx-auto max-w-3xl text-4xl/tight sm:text-5xl/tight font-semibold">
                         {hero.title}
                     </h1>
