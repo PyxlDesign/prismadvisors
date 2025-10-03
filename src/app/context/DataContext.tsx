@@ -10,11 +10,19 @@ interface DataContextType {
 
     hero: {
         title: string;
-        subtitle: string;
+    };
+    welcome: {
+        title: string;
+        description: string;
         ctaButtons: {
             primary: { text: string; href: string };
-            secondary: { text: string; href: string };
+            secondary?: { text: string; href: string };
         };
+    };
+
+    ctaButtons: {
+        primary: { text: string; href: string };
+        secondary: { text: string; href: string };
     };
 
     whyFeatures: {
@@ -73,13 +81,14 @@ const siteData: DataContextType = {
         { label: "About", href: "#about" },
         { label: "Insights", href: "#insights" },
     ],
-
     hero: {
-        title: "Accounting that scales with you.",
-        subtitle: "From startups to enterprises, Prism Advisors delivers full-stack accounting, bookkeeping, and CFO advisory—so your leadership can focus on growth.",
+        title: "Accounting that scales with you."
+    },
+    welcome: {
+        title: "Welcome to Prism Advisors",
+        description: "From startups to enterprises, Prism Advisors delivers full-stack accounting, bookkeeping, and CFO advisory—so your leadership can focus on growth.",
         ctaButtons: {
-            primary: { text: "Speak to an advisor", href: "#contact" },
-            secondary: { text: "Explore services", href: "#services" },
+            primary: { text: "About Us", href: "#contact" },
         },
     },
 

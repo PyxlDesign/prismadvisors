@@ -14,7 +14,7 @@ export default function Industries() {
                 <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {industries.industriesList.map((industry) => (
                         <div key={industry} className="rounded-md border border-blue-100 p-5 bg-white">
-                            <div className="size-9 rounded-sm bg-blue-700/90" />
+                            <div className="size-9 rounded-sm bg-stone-700/90" />
                             <div className="mt-3 font-medium">{industry}</div>
                             <p className="text-sm text-slate-600 mt-1">Short description about work delivered in this sector.</p>
                         </div>

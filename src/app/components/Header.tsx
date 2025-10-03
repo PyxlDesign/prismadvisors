@@ -7,12 +7,11 @@ export default function Header() {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-blue-50">
+        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-stone-200">
             <div className="mx-auto max-w-6xl px-4 sm:px-6">
                 <div className="h-16 flex items-center justify-between">
                     <a href="#home" className="flex items-center gap-2">
-                        <div className="size-6 rounded-sm bg-blue-700" />
-                        <span className="font-medium tracking-tight">Prism Advisors</span>
+                        <span className="font-semibold tracking-tight">Prism Advisors</span>
                     </a>
 
                     <nav className="hidden md:flex items-center gap-8 text-sm">
@@ -21,7 +20,7 @@ export default function Header() {
                                 {item.label}
                             </a>
                         ))}
-                        <a href="#contact" className="inline-flex items-center rounded-full px-4 py-2 ring-1 ring-blue-200 hover:bg-blue-50/50">
+                        <a href="#contact" className="inline-flex items-center rounded-full px-4 py-2 ring-1 ring-stone-800 hover:bg-stone-200/70">
                             Contact
                         </a>
                     </nav>
@@ -39,14 +38,14 @@ export default function Header() {
             </div>
 
             {mobileOpen && (
-                <div className="md:hidden border-t border-blue-100">
+                <div className="md:hidden border-t border-stone-100">
                     <div className="mx-auto max-w-6xl px-4 py-4 grid gap-2">
                         {navigation.map((item) => (
-                            <a key={item.label} href={item.href} className="rounded px-2 py-2 hover:bg-blue-50/50">
+                            <a key={item.label} href={item.href} className="rounded px-2 py-2 hover:bg-stone-500/70">
                                 {item.label}
                             </a>
                         ))}
-                        <a href="#contact" className="rounded-full px-3 py-2 ring-1 ring-blue-200 text-center">
+                        <a href="#contact" className="rounded-full px-3 py-2 ring-1 ring-stone-500 text-center">
                             Contact
                         </a>
                     </div>

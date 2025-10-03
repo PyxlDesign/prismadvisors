@@ -2,6 +2,7 @@
 
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Welcome from './components/Welcome';
 import Why from './components/Why';
 import Services from './components/Services';
 import Industries from './components/Industries';
@@ -15,6 +16,7 @@ export default function Page() {
     <main className="min-h-dvh bg-white text-slate-900 antialiased">
       <Header />
       <Hero />
+      <Welcome />
       <Why />
       <Services />
       <Industries />
