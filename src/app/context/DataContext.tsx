@@ -20,11 +20,6 @@ interface DataContextType {
         };
     };
 
-    ctaButtons: {
-        primary: { text: string; href: string };
-        secondary: { text: string; href: string };
-    };
-
     whyFeatures: {
         title: string;
         subtitle: string;
