@@ -12,6 +12,7 @@ export default function StatementsPage() {
   const [error, setError] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
 
   useEffect(() => {
     setAuthed(isAuthenticated());
@@ -34,6 +35,7 @@ export default function StatementsPage() {
   const processFile = useCallback(async (file: File) => {
     setError(null);
     setData(null);
+    setFileName(file.name.replace(/\.[^.]+$/, ""));
     try {
       const buffer = await file.arrayBuffer();
       const parsed = parseXlsx(buffer);
@@ -74,7 +76,7 @@ export default function StatementsPage() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${data.clientName} - Statement.pdf`;
+      a.download = `${fileName ?? data.clientName}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
@@ -82,11 +84,12 @@ export default function StatementsPage() {
     } finally {
       setGenerating(false);
     }
-  }, [data]);
+  }, [data, fileName]);
 
   const handleReset = useCallback(() => {
     setData(null);
     setError(null);
+    setFileName(null);
   }, []);
 
   if (!authed) {
