@@ -284,14 +284,6 @@ export default function StatementPDF({ data }: { data: StatementData }) {
               are on file.
             </Text>
           </View>
-          <View style={s.bullet}>
-            <View style={s.bulletDot} />
-            <Text style={s.bulletText}>
-              If you&apos;d like us to transfer funds to cover your outstanding strata
-              bill, please reply to this email to advise us and give us
-              permission to do so.
-            </Text>
-          </View>
         </View>
       </Page>
     </Document>
