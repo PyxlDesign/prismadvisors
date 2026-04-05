@@ -4,6 +4,7 @@ export interface StatementData {
   clientName: string;
   propertyInfo: string[];
   statementDate: string;
+  unitNumber: string;
   lineItems: LineItem[];
 }
 
@@ -105,12 +106,17 @@ function getCellNumber(
   return isNaN(num) ? null : num;
 }
 
+
 export function parseXlsx(data: ArrayBuffer): StatementData {
   const workbook = XLSX.read(data, { type: "array", cellDates: true });
   const sheet = workbook.Sheets[workbook.SheetNames[0]];
 
   const clientName = findClientName(sheet);
   const { headerRow, colMap } = findHeaderRow(sheet);
+
+  // Client name is typically "Unit 207 - James Eldridge" — split on " - " to extract the unit
+  const dashIndex = clientName.indexOf(" - ");
+  const unitNumber = dashIndex !== -1 ? clientName.slice(0, dashIndex).trim() : "";
   const range = XLSX.utils.decode_range(sheet["!ref"] || "A1");
 
   // Gather property info from column A rows above the header (skip the client name row)
@@ -158,5 +164,5 @@ export function parseXlsx(data: ArrayBuffer): StatementData {
     year: "2-digit",
   });
 
-  return { clientName, propertyInfo, statementDate, lineItems };
+  return { clientName, propertyInfo, statementDate, unitNumber, lineItems };
 }

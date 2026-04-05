@@ -12,7 +12,8 @@ export default function StatementsPage() {
   const [error, setError] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [statementDateInput, setStatementDateInput] = useState<string>("");
+  const [unitNumber, setUnitNumber] = useState<string>("");
 
   useEffect(() => {
     setAuthed(isAuthenticated());
@@ -35,11 +36,16 @@ export default function StatementsPage() {
   const processFile = useCallback(async (file: File) => {
     setError(null);
     setData(null);
-    setFileName(file.name.replace(/\.[^.]+$/, ""));
     try {
       const buffer = await file.arrayBuffer();
       const parsed = parseXlsx(buffer);
       setData(parsed);
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      setStatementDateInput(`${yyyy}-${mm}-${dd}`);
+      setUnitNumber(parsed.unitNumber);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to parse file.");
     }
@@ -72,11 +78,21 @@ export default function StatementsPage() {
         import("@react-pdf/renderer"),
         import("./components/StatementPDF"),
       ]);
-      const blob = await pdf(<StatementPDF data={data} />).toBlob();
+      // Format date for PDF display (e.g. "04 Apr 26")
+      const [year, month, day] = statementDateInput.split("-");
+      const pdfDate = new Date(Number(year), Number(month) - 1, Number(day));
+      const pdfDateStr = pdfDate.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+      const blob = await pdf(
+        <StatementPDF data={{ ...data, statementDate: pdfDateStr }} />
+      ).toBlob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${fileName ?? data.clientName}.pdf`;
+      a.download = `${year}.${month}.${day} - ${unitNumber} - Owners Statement.pdf`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
@@ -84,12 +100,13 @@ export default function StatementsPage() {
     } finally {
       setGenerating(false);
     }
-  }, [data, fileName]);
+  }, [data, statementDateInput, unitNumber]);
 
   const handleReset = useCallback(() => {
     setData(null);
     setError(null);
-    setFileName(null);
+    setStatementDateInput("");
+    setUnitNumber("");
   }, []);
 
   if (!authed) {
@@ -165,10 +182,31 @@ export default function StatementsPage() {
               <dt className="font-medium text-gray-500">Client</dt>
               <dd>{data.clientName}</dd>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <dt className="font-medium text-gray-500">Statement Date</dt>
-              <dd>{data.statementDate}</dd>
+              <dd>
+                <input
+                  type="date"
+                  value={statementDateInput}
+                  onChange={(e) => setStatementDateInput(e.target.value)}
+                  className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </dd>
             </div>
+            {!unitNumber && (
+              <div className="flex justify-between items-center">
+                <dt className="font-medium text-gray-500">Unit Number</dt>
+                <dd>
+                  <input
+                    type="text"
+                    value={unitNumber}
+                    onChange={(e) => setUnitNumber(e.target.value)}
+                    placeholder="e.g. 101"
+                    className="border border-gray-300 rounded px-2 py-1 text-sm w-28 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </dd>
+              </div>
+            )}
             <div className="flex justify-between">
               <dt className="font-medium text-gray-500">Line Items</dt>
               <dd>{data.lineItems.length}</dd>

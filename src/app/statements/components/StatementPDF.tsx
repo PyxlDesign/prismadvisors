@@ -269,7 +269,7 @@ export default function StatementPDF({ data }: { data: StatementData }) {
         {/* Balance footer */}
         <View style={s.balanceFooter}>
           <Text style={s.balanceFooterText}>
-            Balance Due / (Credit Due to Owner) USD {fmt(finalBalance)}
+            (Balance Due) / Amount Due to Owner USD {fmt(finalBalance)}
           </Text>
         </View>
 
