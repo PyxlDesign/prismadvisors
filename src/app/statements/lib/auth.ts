@@ -2,7 +2,7 @@ const SESSION_KEY = "pw-authenticated";
 
 // SHA-256 hash of the password, so it's not plain text in the bundle
 const PASSWORD_HASH =
-  "4f8ae673af8be5083db8d91eef413325ec18417bccbd93029eba8f1e62f46c57";
+  "ccca9255186243b8472b7c312fd622c54baabed085df855eb52e4099ab225582";
 
 async function sha256(input: string): Promise<string> {
   const encoded = new TextEncoder().encode(input);
